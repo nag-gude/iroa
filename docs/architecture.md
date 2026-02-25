@@ -31,7 +31,7 @@ flowchart TB
 
   subgraph data_svc [Data Service :8001]
     Search[Search API]
-    ESQL[ES|QL API]
+    ESQL["ES|QL API"]
   end
 
   subgraph actions_svc [Actions Service :8002]
@@ -65,7 +65,7 @@ This is the 8-step loop that distinguishes IROA from a simple “chatbot over lo
 
 ```mermaid
 flowchart TD
-  A[1. Alert received] --> B[2. Run ES|QL queries]
+  A[1. Alert received] --> B["2. Run ES|QL queries"]
   B --> C[3. Semantic / hybrid search]
   C --> D[4. Correlate time-series anomalies]
   D --> E[5. Generate hypothesis]
