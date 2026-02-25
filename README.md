@@ -72,4 +72,4 @@ IROA is built for **real-time incident response**: one request runs the full loo
 
 ## License
 
-MIT License.
+[MIT License](LICENSE).
