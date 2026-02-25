@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iroa"
+version = "0.1.0"
+description = "IROA — Incident Response + Observability Agent. Search. Reason. Resolve."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "elasticsearch>=8.0.0,<9.0.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.25.0",
+    "typer>=0.9.0",
+]
+
+[project.scripts]
+iroa = "iroa.cli:app"
+# Vercel FastAPI entry point (see https://vercel.com/docs/frameworks/backend/fastapi)
+app = "iroa.api.main:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["iroa*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [".venv", "build", "dist"]

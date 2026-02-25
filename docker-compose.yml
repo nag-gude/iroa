@@ -1,0 +1,48 @@
+# IROA microservices. Run from IROA project root: docker-compose up -d
+# Set ELASTICSEARCH_URL and ELASTICSEARCH_API_KEY in .env (or use docker-compose --env-file .env).
+
+services:
+  data:
+    build: { context: ., dockerfile: docker/Dockerfile.data }
+    ports: ["8001:8001"]
+    dns: [8.8.8.8, 8.8.4.4]
+    environment:
+      ELASTICSEARCH_URL: ${ELASTICSEARCH_URL:-http://host.docker.internal:9200}
+      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_API_KEY}
+      IROA_LOG_INDEX_PATTERN: ${IROA_LOG_INDEX_PATTERN:-logs-*}
+      IROA_METRICS_INDEX_PATTERN: ${IROA_METRICS_INDEX_PATTERN:-metrics-*}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  actions:
+    build: { context: ., dockerfile: docker/Dockerfile.actions }
+    ports: ["8002:8002"]
+    environment:
+      JIRA_BASE_URL: ${JIRA_BASE_URL}
+      JIRA_API_TOKEN: ${JIRA_API_TOKEN}
+      JIRA_EMAIL: ${JIRA_EMAIL}
+      JIRA_PROJECT_KEY: ${JIRA_PROJECT_KEY:-IROA}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  agent:
+    build: { context: ., dockerfile: docker/Dockerfile.agent }
+    ports: ["8000:8000"]
+    environment:
+      DATA_SERVICE_URL: http://data:8001
+      ACTIONS_SERVICE_URL: http://actions:8002
+    depends_on:
+      data: { condition: service_healthy }
+      actions: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IROA — Incident Response + Observability Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>IROA — Incident Response + Observability Agent</h1>
+      <p class="tagline"><strong>Search. Reason. Resolve.</strong> — Powered by Elasticsearch Search + ES|QL</p>
+    </header>
+
+    <section>
+      <h2>Query</h2>
+      <p class="query-hint">Ask a natural-language question over your logs and metrics. IROA runs Search and ES|QL, correlates results, and returns a summary, root-cause hypothesis, evidence, and audit trail.</p>
+      <div class="row">
+        <div class="field" style="flex: 1 1 100%;">
+          <label for="query">Question or alert description</label>
+          <textarea id="query" placeholder="e.g. Why did checkout fail in the last 15 minutes?">Why did checkout fail in the last 15 minutes?</textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field small">
+          <label for="time_range">Time range (minutes)</label>
+          <input type="number" id="time_range" value="15" min="1" max="10080" />
+        </div>
+        <div class="field checkbox">
+          <input type="checkbox" id="create_ticket" />
+          <label for="create_ticket">Create Jira ticket (if configured)</label>
+        </div>
+        <div class="field">
+          <button type="button" id="submit">Analyze</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="error" role="alert"></div>
+    <div id="loading" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="loading-text">Running agent (Search + ES|QL → correlate → hypothesis)…</span>
+    </div>
+
+    <div id="result">
+      <section>
+        <h2>Summary & root cause</h2>
+        <div class="summary-box">
+          <h3>Summary</h3>
+          <p id="out-summary"></p>
+          <span id="out-confidence" class="confidence"></span>
+        </div>
+        <div class="summary-box">
+          <h3>Root cause</h3>
+          <p id="out-root_cause"></p>
+        </div>
+      </section>
+
+      <section id="section-actions" style="display: none;">
+        <h2>Actions taken</h2>
+        <ul id="out-actions"></ul>
+      </section>
+
+      <section>
+        <h2>Evidence (citations)</h2>
+        <div id="out-evidence"></div>
+      </section>
+
+      <section>
+        <h2>Audit trail</h2>
+        <ul id="out-audit"></ul>
+      </section>
+
+      <section id="section-explanation" style="display: none;">
+        <h2>Explanation</h2>
+        <p id="out-explanation"></p>
+      </section>
+    </div>
+
+    <footer>
+      IROA — Elasticsearch Agent Builder Hackathon. API: <code>POST /analyze</code> · <code>GET /health</code>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

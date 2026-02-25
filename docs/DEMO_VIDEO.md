@@ -1,0 +1,12 @@
+#### Pitch for the demo video
+
+Use this as a script/outline for your ~3-minute recording.
+
+| Time | What to do / say |
+|------|------------------|
+| **0:00–0:25** | **Hook + problem.** “When an alert fires, engineers often jump between Kibana, logs, and Jira—correlating by hand and creating tickets with incomplete context. We built IROA so the full incident loop runs in one call.” Show a single sentence on screen or a simple diagram: *Alert → Search + ES\|QL → correlate → hypothesis → optional ticket → response.* |
+| **0:25–0:50** | **What IROA is.** “IROA is an Incident Response and Observability Agent. Tagline: Search. Reason. Resolve. You send a natural-language query or an alert; IROA runs Elasticsearch Search and ES\|QL, correlates results, produces a root-cause hypothesis with evidence, and can create a Jira ticket—all in one request. Elasticsearch is the system of record; we don’t replace it.” |
+| **0:50–1:45** | **Live demo — web UI.** Open the IROA demo UI (e.g. http://localhost:8000 or your deployed URL). Enter a query like “Why did checkout fail in the last 15 minutes?” and set the time range. Click **Analyze**. As the response loads, point out: “One click—we get a summary, root cause, evidence with citations to Elasticsearch docs, and an audit trail. If we’d enabled it, a Jira ticket would be created in the same run.” Optionally show the JSON response (summary, root_cause, evidence, audit_trail) for a few seconds. |
+| **1:45–2:15** | **Under the hood.** “Under the hood, every run uses Elasticsearch Search over logs and ES\|QL for things like error count by host—all time-bounded. The agent correlates, builds a hypothesis, and optionally calls our Jira connector.” Show architecture slide or a one-line flow if you have it. |
+| **2:15–2:45** | **How to run it.** “You can run IROA as a monolith or as microservices with Docker Compose, or deploy the monolith on Vercel. The repo is public, Apache-2.0. Docs include an **architecture diagram** and **implementation guide**—see the repo. Quick start: set your Elasticsearch URL and API key, run the test-data script if you need sample logs, then start the server and hit the API or open the UI.” Optionally show a one-line `curl` or `docker-compose up` for a few seconds. |
+| **2:45–3:00** | **Close.** “IROA—Search. Reason. Resolve. One agent, one call, full incident loop. Thanks for watching.” Show repo URL and tagline on screen. |
