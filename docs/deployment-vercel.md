@@ -55,7 +55,26 @@ Open the URL shown (e.g. http://localhost:3000). Ensure `.env` is present for lo
 - **Analyze API:** `POST https://<your-project>.vercel.app/analyze`
 - **Health:** `GET https://<your-project>.vercel.app/health`
 
-## 5. Notes
+## 5. Test data (create test-data ingest when using Vercel)
+
+The test-data script **does not run on Vercel**. Vercel only runs the FastAPI app. Ingest test data **from your machine** (or CI) into the **same** Elasticsearch that the Vercel app uses:
+
+1. **Use the same credentials as Vercel:** In the IROA repo, set `.env` with the same `ELASTICSEARCH_URL` (or `ELASTICSEARCH_CLOUD_ID`) and `ELASTICSEARCH_API_KEY` that you configured in the Vercel project (Settings → Environment Variables).
+2. **Run the script from the IROA project root** (requires a classic, non-Serverless Elastic Cloud deployment):
+
+   ```bash
+   cd IROA
+   source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+   pip install -r requirements.txt   # if needed
+   PYTHONPATH=. python scripts/create_test_data.py --minutes 60
+   ```
+
+3. The script writes sample logs and metrics into your Elasticsearch (`logs-iroa-test`, `metrics-iroa-test`). The **Vercel-deployed app** will then read from that Elasticsearch when users call `/analyze`.
+4. Use `time_range_minutes` ≤ 60 in analyze requests to match the test data window.
+
+You can run the script **before** or **after** deploying to Vercel; the only requirement is that the Elasticsearch URL and API key in your local `.env` match the ones in Vercel.
+
+## 6. Notes
 
 - **Monolith only:** This deployment runs the **single-process monolith** (API + Search + ES|QL + optional Jira). The three **microservices** (Agent, Data, Actions) are not deployed separately on Vercel; use [Docker Compose](deployment.md) for that.
 - **Cold starts:** Serverless functions may have a cold start on first request; subsequent requests reuse the same instance.
