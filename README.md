@@ -1,12 +1,14 @@
 # IROA — Incident Response + Observability Agent
 
+**Built with [Elastic Agent Builder](https://www.elastic.co/docs/explore-analyze/ai-features/elastic-agent-builder)** — the key hackathon requirement. IROA is a multi-step AI agent that uses Agent Builder’s **Search** and **ES|QL** tools over Elasticsearch to automate incident response.
+
 ![IROA Logo](assets/Thumbnail.png)
 
 **Tagline:** Search. Reason. Resolve.
 
 **Subtitle:** Autonomous Observability Agent powered by Elasticsearch Search + ES|QL + Workflows.
 
-IROA is a multi-step AI agent that uses **Elasticsearch as the system of record**: it runs ES|QL queries, performs search over logs and metrics, correlates anomalies, generates root-cause hypotheses, and optionally creates tickets via workflows or native connectors. It is not a chatbot over logs—it orchestrates a **full incident response loop in one call**.
+IROA is built **using Elastic Agent Builder**: a reasoning agent that calls **Search** and **ES|QL** (Agent Builder tools), uses **Elasticsearch as the system of record**, correlates results, generates root-cause hypotheses, and optionally creates tickets via native connectors. It is not a chatbot over logs—it orchestrates a **full incident response loop in one call**. See **[docs/AGENT_BUILDER.md](docs/AGENT_BUILDER.md)** for how the code maps to Agent Builder.
 
 
 ## Why IROA stands out
@@ -17,7 +19,7 @@ IROA is a multi-step AI agent that uses **Elasticsearch as the system of record*
 - **Elasticsearch-native** — Search API + ES|QL drive all retrieval and correlation; no replacement of Elastic as the system of record.
 - **Production-ready** — Microservices, Docker Compose, Vercel. API + CLI + **web demo UI** (FastAPI-served) out of the box.
 
-See **[architecture.md](docs/architecture.md)** for diagrams and how we use Elastic Agent Builder and Elasticsearch.
+See **[docs/AGENT_BUILDER.md](docs/AGENT_BUILDER.md)** for the Agent Builder mapping and **[docs/architecture.md](docs/architecture.md)** for diagrams and Elasticsearch usage.
 
 
 ## Quick start
@@ -39,6 +41,7 @@ Then open **http://localhost:8000** in your browser for the **demo UI** (query, 
 | Document | Description |
 |----------|-------------|
 | [docs/SUBMISSION.md](docs/SUBMISSION.md) | **Hackathon submission:** Inspiration, What it does, How we built it, Challenges, Accomplishments, What we learned, What's next |
+| [docs/AGENT_BUILDER.md](docs/AGENT_BUILDER.md) | **Key requirement:** How IROA is built with Elastic Agent Builder (agent + Search + ES\|QL tools) |
 | [docs/setup.md](docs/setup.md) | Prerequisites, install, config, run (monolith and microservices) |
 | [docs/implementation.md](docs/implementation.md) | Project layout, key components, how to extend |
 | [docs/deployment.md](docs/deployment.md) | Docker Compose, env vars, ports, production notes |
