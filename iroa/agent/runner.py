@@ -1,4 +1,9 @@
-"""Core Agent Loop: Alert -> ES|QL -> Search -> correlate -> hypothesis -> ticket -> audit -> explanation."""
+"""Core Agent Loop (Elastic Agent Builder).
+
+Implements the Elastic Agent Builder agent: orchestrates Search and ES|QL tools,
+reasons over results, optionally creates tickets, and returns an auditable response.
+Flow: Alert -> ES|QL -> Search -> correlate -> hypothesis -> ticket -> audit -> explanation.
+See docs/AGENT_BUILDER.md for how IROA uses Agent Builder."""
 from __future__ import annotations
 
 from typing import Callable
