@@ -1,4 +1,7 @@
-"""IROA monolith API: POST /analyze (single process) + demo UI at /."""
+"""IROA monolith API (Elastic Agent Builder).
+
+POST /analyze runs the Agent Builder agent (Search + ES|QL tools, reasoning, optional ticket).
+Single process + demo UI at /. See docs/AGENT_BUILDER.md."""
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
