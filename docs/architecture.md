@@ -2,10 +2,12 @@
 
 **IROA** — Incident Response + Observability Agent. Search. Reason. Resolve.
 
+**Built with Elastic Agent Builder.** IROA implements the hackathon’s key requirement: a multi-step agent using Agent Builder with **Search** and **ES|QL** tools. See [AGENT_BUILDER.md](AGENT_BUILDER.md) for the mapping from Agent Builder concepts to code.
+
 
 ## Elastic Agent Builder & Elasticsearch usage
 
-IROA is built to align with **Elastic Agent Builder** and **Elasticsearch** as required by the hackathon:
+IROA is **built using Elastic Agent Builder** and **Elasticsearch** as required by the hackathon:
 
 - **Elasticsearch as system of record:** All retrieval and correlation use **Elasticsearch** only. No external search or analytics store.
 - **Elasticsearch Search API:** Used in every analyze run for full-text search over `logs-*` with time bounds and query relevance. Implemented in `iroa/tools/search.py` (SearchTool).
