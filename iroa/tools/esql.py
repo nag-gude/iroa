@@ -1,4 +1,7 @@
-"""ES|QL tool — run piped queries for aggregations, filtering, time bucketing."""
+"""Elastic Agent Builder — ES|QL tool.
+
+ES|QL queries for aggregations, filtering, time bucketing. Used by the Agent Builder
+agent for analytics (e.g. error count by host). See docs/AGENT_BUILDER.md."""
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -1,4 +1,7 @@
-"""Elasticsearch Search tool — retrieve relevant logs/metrics by query and time range."""
+"""Elastic Agent Builder — Search tool.
+
+Elasticsearch Search API over logs/metrics (index search). Used by the Agent Builder
+agent for full-text search, time bounds, and filters. See docs/AGENT_BUILDER.md."""
 from __future__ import annotations
 
 from dataclasses import dataclass
